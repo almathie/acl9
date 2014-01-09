@@ -1,14 +1,11 @@
 require 'rubygems'
 require 'bundler/setup'
-require 'context'
 require 'matchy'
 require 'active_support'
 require 'active_record'
 require 'test/unit'
 require 'action_controller'
-require 'action_controller/test_process'
 require 'turn'
-
 
 ActiveRecord::Base.establish_connection(:adapter => 'sqlite3', :database => 'test.sqlite3')
 
@@ -22,7 +19,7 @@ class Test::Unit::TestCase
   end
 end
 
-ActionController::Routing::Routes.draw do |map|
+ActionDispatch::Routing::Routes.draw do |map|
   map.connect ":controller/:action/:id"
 end
 
