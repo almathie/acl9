@@ -94,7 +94,7 @@ module Acl9
           select("#{subj_table}.*")
           .joins("INNER JOIN #{join_table} ON #{subj_col}_id = #{subj_table}.id")
           .joins("INNER JOIN #{role_table} ON #{role_table}.id = #{role.underscore}_id")
-          .where(authorizable_type: self.class.base_class.to_s, authorizable_id: id)
+          .where(authorizable_type: self.base_class.to_s, authorizable_id: id)
           .distinct
           .readonly(true)
         }
