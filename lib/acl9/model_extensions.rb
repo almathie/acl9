@@ -74,6 +74,7 @@ module Acl9
         subject = options[:subject_class_name] || Acl9::config[:default_subject_class_name]
         subj_table = subject.constantize.table_name
         subj_col = subject.underscore
+        object = self
 
         role       = options[:role_class_name] || Acl9::config[:default_role_class_name]
         role_table = role.constantize.table_name
@@ -94,7 +95,7 @@ module Acl9
           select("#{subj_table}.*")
           .joins("INNER JOIN #{join_table} ON #{subj_col}_id = #{subj_table}.id")
           .joins("INNER JOIN #{role_table} ON #{role_table}.id = #{role.underscore}_id")
-          .where(authorizable_type: self.base_class.to_s, authorizable_id: id)
+          .where(authorizable_type: self.base_class.to_s, authorizable_id: object.id)
           .distinct
           .readonly(true)
         }
